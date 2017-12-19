@@ -2,15 +2,34 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>My Project</title>
+	<title>Noting But Coffee</title>
 	<link rel="stylesheet" href="public/styles/style.css">
 </head>
 <body>
-
-	<div class="container">
-		<h1>Hey Emma!</h1>
-	</div>
-
+	<header>
+		<h1>Nothing But Coffee</h1>
+		<h2>Find a drink for all your coffee needs</h2>
+	</header>
+	<main>
+		<section class="drink-form">
+			<h3>Let me ask you one question...</h3>
+			<form id="selection-form">
+				<p>Do you want alochol in there?</p>
+				<input type="radio" id="yes" name="selection2" value="yes">
+				<label for="yes">Yes</label>
+				<input type="radio" id="no" name="selection2" value="no">
+				<label for="no">No</label>
+				<p class="selection-form_error">Please fill out the entire form</p>
+				<input type="submit" value="Find Some Drinks">
+			</form>
+		</section>
+		<section class="drink-results">
+			<h3>Here Are Some Drinks You Could Make</h3>
+			<div class="drink-results_displayed"></div>
+		</section>
+	</main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="public/scripts/main.js"></script>
 	
 </body>
