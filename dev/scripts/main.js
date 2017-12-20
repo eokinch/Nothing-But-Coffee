@@ -3,6 +3,7 @@ const coffeeApp = {};
 coffeeApp.key = '4bba844de5c34fdd2ce7dfe6963d7f05';
 coffeeApp.id = '64cb1661';
 coffeeApp.withAlochol = '';
+coffeeApp.allResults = [];
 
 coffeeApp.formSubmit = () => {
 	$('#selection-form').submit( (e) => {
@@ -27,21 +28,40 @@ coffeeApp.getData = () => {
 		method: 'GET',
 		dataType: 'JSON'
 	}).then((data) => {
-		coffeeApp.reduceData(data.matches)
+		data.matches.forEach((x) => {
+			coffeeApp.allResults.push(x);
+		});
+		coffeeApp.reduceData();
 	})
 }
 
-coffeeApp.reduceData = (data) => {
-	const getThreeRecipies = _.sample(data, 3);
-
+coffeeApp.reduceData = () => {
+	$('.drink-results_displayed').empty();
+	const allDrinks = coffeeApp.allResults;
+	const getThreeRecipies = _.sample(allDrinks, 3);
 	coffeeApp.displayData(getThreeRecipies)
 }
 
 coffeeApp.displayData = (data) => {
+	const displayResults = $('.drink-results_displayed');
 	data.forEach((e) => {
-		console.log(e)
+		console.log(e);
+		const titleFormatted = e.recipeName;
+		console.log(titleFormatted)
+		const getImage = e.imageUrlsBySize['90'];
+		const itemDiv = $('<div>').addClass('displayed-item');
+		const title = $('<h4>').text(titleFormatted);
+		const image = $('<img>').attr('src', `${getImage}`);
+		itemDiv.append(title, image);
+		displayResults.append(itemDiv);
 	})
-	// $('.drink-results_displayed')
+	coffeeApp.changeData();
+}
+
+coffeeApp.changeData = () => {
+	$('.new-drinks').on('click', () => {
+		coffeeApp.reduceData();
+	})
 }
 
 $(() => {
