@@ -1,7 +1,7 @@
 @import 'partials/setup';
 
-.container {
-	max-width: 900px;
+.wrapper {
+	max-width: 1080px;
 	margin: 0 auto;
 }
 
@@ -11,4 +11,20 @@ body {
 
 .selection-form_error {
 	visibility: hidden;
+}
+
+.drink-results_displayed {
+	display: flex;
+}
+
+.displayed-item {
+	margin: 0 10px; 
+	width:calc(33.33% - 20px);
+	ul {
+		margin: 0;
+		list-style: decimal;
+		li {
+			text-transform: capitalize;
+		}
+	}
 }

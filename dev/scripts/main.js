@@ -24,7 +24,7 @@ coffeeApp.formSubmit = () => {
 
 coffeeApp.getData = () => {
 	$.ajax({
-		url: `http://api.yummly.com/v1/api/recipes?_app_id=${coffeeApp.id}&_app_key=${coffeeApp.key}&q=coffee&allowedCourse[]=course^course-Beverages&${coffeeApp.withAlochol}&maxResult=100`,
+		url: `http://api.yummly.com/v1/api/recipes?_app_id=${coffeeApp.id}&_app_key=${coffeeApp.key}&q=coffee&allowedCourse[]=course^course-Beverages&excludedCourse[]=course^course-Dessert&${coffeeApp.withAlochol}&maxResult=100`,
 		method: 'GET',
 		dataType: 'JSON'
 	}).then((data) => {
@@ -52,7 +52,13 @@ coffeeApp.displayData = (data) => {
 		const itemDiv = $('<div>').addClass('displayed-item');
 		const title = $('<h4>').text(titleFormatted);
 		const image = $('<img>').attr('src', `${getImage}`);
-		itemDiv.append(title, image);
+		const ingridentsTitle = $('<p>').text('Show ingredients');
+		const ingridentsList = $('<ul>').addClass('ingridents-list');
+		e.ingredients.forEach((item) => {
+			const ingridentItem = $('<li>').text(item)
+			ingridentsList.append(ingridentItem);
+		})
+		itemDiv.append(title, image, ingridentsTitle, ingridentsList);
 		displayResults.append(itemDiv);
 	})
 	coffeeApp.changeData();

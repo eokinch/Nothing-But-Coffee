@@ -6,12 +6,12 @@
 	<link rel="stylesheet" href="public/styles/style.css">
 </head>
 <body>
-	<header>
+	<header class="wrapper">
 		<h1>Nothing But Coffee</h1>
 		<h2>Find a drink for all your coffee needs</h2>
 	</header>
 	<main>
-		<section class="drink-form">
+		<section class="drink-form wrapper">
 			<h3>Let me ask you one question...</h3>
 			<form id="selection-form">
 				<p>Do you want alochol in there?</p>
@@ -23,12 +23,17 @@
 				<input type="submit" value="Find Some Drinks">
 			</form>
 		</section>
-		<section class="drink-results">
+		<section class="drink-results wrapper">
 			<h3>Here Are Some Drinks You Could Make</h3>
 			<div class="drink-results_displayed"></div>
 			<button class="new-drinks">Generate New Drinks</button>
 		</section>
 	</main>
+	<footer>
+		<p>Generated with the Yummly API</p>
+		<p>Emma Kinch 2017</p>
+
+	</footer>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="public/scripts/main.js"></script>
