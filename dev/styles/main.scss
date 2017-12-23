@@ -20,9 +20,19 @@ body {
 .displayed-item {
 	margin: 0 10px; 
 	width:calc(33.33% - 20px);
+	background: white;
+	padding: 15px;
+	h4 {
+		text-align: center;
+	}
+	img {
+		width: 66%;
+		display: block;
+		margin: 0 auto;
+	}
 	ul {
 		margin: 0;
-		list-style: decimal;
+		list-style: none;
 		li {
 			text-transform: capitalize;
 		}
