@@ -1,13 +1,5 @@
 @import 'partials/setup';
-
-.wrapper {
-	max-width: 1080px;
-	margin: 0 auto;
-}
-
-body {
-	background: purple;
-}
+@import 'partials/global';
 
 .selection-form_error {
 	visibility: hidden;
