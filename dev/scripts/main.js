@@ -46,16 +46,6 @@ coffeeApp.displayData = (data) => {
 	const displayResults = $('.drink-results_displayed');
 	data.forEach((e) => {
 		const titleFormatted = e.recipeName;
-		const getImage = e.imageUrlsBySize['90'];
-		// const imageStringType = typeof(e.imageUrlsBySize['90']);
-		// console.log(imageStringType)
-		// if( imageStringType !== string) {
-		// 	console.log('no photo')
-		// 	// getImage = e.imageUrlsBySize['90'];
-		// } else {
-		// 	console.log('photo');
-		// 	// getImage = `../../assets/image-substitute.png`
-		// }
 		const itemDiv = $('<div>').addClass('displayed-item');
 		const title = $('<h4>').text(titleFormatted);
 		const image = $('<img>').attr('src', `${getImage}`);
