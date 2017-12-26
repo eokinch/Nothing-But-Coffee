@@ -24,7 +24,7 @@ coffeeApp.formSubmit = () => {
 
 coffeeApp.getData = () => {
 	$.ajax({
-		url: `http://api.yummly.com/v1/api/recipes?_app_id=${coffeeApp.id}&_app_key=${coffeeApp.key}&q=coffee&allowedCourse[]=course^course-Beverages&excludedCourse[]=course^course-Dessert&${coffeeApp.withAlochol}&maxResult=100`,
+		url: `http://api.yummly.com/v1/api/recipes?_app_id=${coffeeApp.id}&_app_key=${coffeeApp.key}&q=coffee&allowedCourse[]=course^course-Beverages&excludedCourse[]=course^course-Dessert&${coffeeApp.withAlochol}&requirePictures=true`,
 		method: 'GET',
 		dataType: 'JSON'
 	}).then((data) => {
@@ -45,10 +45,17 @@ coffeeApp.reduceData = () => {
 coffeeApp.displayData = (data) => {
 	const displayResults = $('.drink-results_displayed');
 	data.forEach((e) => {
-		console.log(e);
 		const titleFormatted = e.recipeName;
-		console.log(titleFormatted)
-		const getImage = e.smallImageUrls[0];
+		const getImage = e.imageUrlsBySize['90'];
+		// const imageStringType = typeof(e.imageUrlsBySize['90']);
+		// console.log(imageStringType)
+		// if( imageStringType !== string) {
+		// 	console.log('no photo')
+		// 	// getImage = e.imageUrlsBySize['90'];
+		// } else {
+		// 	console.log('photo');
+		// 	// getImage = `../../assets/image-substitute.png`
+		// }
 		const itemDiv = $('<div>').addClass('displayed-item');
 		const title = $('<h4>').text(titleFormatted);
 		const image = $('<img>').attr('src', `${getImage}`);
