@@ -45,7 +45,9 @@ coffeeApp.reduceData = () => {
 coffeeApp.displayData = (data) => {
 	const displayResults = $('.drink-results_displayed');
 	data.forEach((e) => {
+		console.log(e)
 		const titleFormatted = e.recipeName;
+		const getImage = e.smallImageUrls[0];
 		const itemDiv = $('<div>').addClass('displayed-item');
 		const title = $('<h4>').text(titleFormatted);
 		const image = $('<img>').attr('src', `${getImage}`);
@@ -60,7 +62,7 @@ coffeeApp.displayData = (data) => {
 		displayResults.append(itemDiv);
 	})
 	coffeeApp.changeData();
-	coffeeApp.fullRecipe();
+	coffeeApp.getFullRecipe();
 }
 
 coffeeApp.changeData = () => {
@@ -69,7 +71,7 @@ coffeeApp.changeData = () => {
 	})
 }
 
-coffeeApp.fullRecipe = () => {
+coffeeApp.getFullRecipe = () => {
 	$('.see-full-recipe').on('click', function(e) {
 		e.preventDefault();
 		const recipeId = $(this).data("id");
@@ -79,9 +81,22 @@ coffeeApp.fullRecipe = () => {
 			dataType: 'Json'
 
 		}).then((res) => {
-			console.log(res)
+			coffeeApp.displayFullRecipe(res)
 		})
 	})
+}
+
+coffeeApp.displayFullRecipe = (data) => {
+	console.log(data)
+	const name = $('<h3>').text(data.name);
+	const rating = $('<p>').text(`Rating: ${data.rating}`);
+	const time = $('<p>').text(`Prep Time: ${data.prepTime}`);
+	const servings = $('<p>').text(`Servings: ${data.numberOfServings}`);
+	const nameAndTime = $('<div class="name-time">').append(name, time);
+	const ratingAndServings = $('<div class="rating-serving">').append(rating, servings);
+ 	const titleDiv = $('<div class="recipe-header">').append(nameAndTime, ratingAndServings);
+ 	const image = $('<img>').attr('src', `${data.images[0].hostedLargeUrl}`).attr('alt', `photo of ${data.name}`)
+	$('.full-reciepe').append(titleDiv, image)
 }
 
 $(() => {
