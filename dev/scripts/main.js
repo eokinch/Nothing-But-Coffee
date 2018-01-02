@@ -45,18 +45,11 @@ coffeeApp.reduceData = () => {
 coffeeApp.displayData = (data) => {
 	const displayResults = $('.drink-results_displayed');
 	data.forEach((e) => {
-		console.log(e)
 		const titleFormatted = e.recipeName;
 		const getImage = e.smallImageUrls[0];
 		const itemDiv = $('<div>').addClass('displayed-item');
 		const title = $('<h4>').text(titleFormatted);
 		const image = $('<img>').attr('src', `${getImage}`);
-		// const ingridentsTitle = $('<p>').text('Show ingredients');
-		// const ingridentsList = $('<ul>').addClass('ingridents-list');
-		// e.ingredients.forEach((item) => {
-		// 	const ingridentItem = $('<li>').text(item)
-		// 	ingridentsList.append(ingridentItem);
-		// })
 		const fullRecipeButton = $(`<button data-id='${e.id}'>`).text('See Full Recipe').addClass('see-full-recipe');
 		itemDiv.append(title, image, fullRecipeButton);
 		displayResults.append(itemDiv);
@@ -89,14 +82,65 @@ coffeeApp.getFullRecipe = () => {
 coffeeApp.displayFullRecipe = (data) => {
 	console.log(data)
 	const name = $('<h3>').text(data.name);
-	const rating = $('<p>').text(`Rating: ${data.rating}`);
-	const time = $('<p>').text(`Prep Time: ${data.prepTime}`);
+	let rating = '';
+	if (data.rating === 1){
+			$('.rating').append(
+			`<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star-o" aria-hidden="true"></i>
+			<i class="fa fa-star-o" aria-hidden="true"></i>
+			<i class="fa fa-star-o" aria-hidden="true"></i>
+			<i class="fa fa-star-o" aria-hidden="true"></i>`)
+	}else if (data.rating === 2){
+		$('.rating').append(`
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star-o" aria-hidden="true"></i>
+			<i class="fa fa-star-o" aria-hidden="true"></i>
+			<i class="fa fa-star-o" aria-hidden="true"></i>`)
+	}else if (data.rating === 3){
+		$('.rating').append(`
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star-o" aria-hidden="true"></i>
+			<i class="fa fa-star-o" aria-hidden="true"></i>`)
+	}else if (data.rating === 4){
+		$('.rating').append(`
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star-o" aria-hidden="true"></i>`)
+	}else if (data.rating === 5){
+		$('.rating').append(`
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star" aria-hidden="true"></i>
+			<i class="fa fa-star" aria-hidden="true"></i>`)
+	}else {
+		$('.rating').append$(`<p>Not Rated</p>`);
+	}
+	const time = $('<p>').text(`Prep Time: ${data.totalTime}`);
 	const servings = $('<p>').text(`Servings: ${data.numberOfServings}`);
-	const nameAndTime = $('<div class="name-time">').append(name, time);
-	const ratingAndServings = $('<div class="rating-serving">').append(rating, servings);
- 	const titleDiv = $('<div class="recipe-header">').append(nameAndTime, ratingAndServings);
- 	const image = $('<img>').attr('src', `${data.images[0].hostedLargeUrl}`).attr('alt', `photo of ${data.name}`)
-	$('.full-reciepe').append(titleDiv, image)
+ 	const image = $('<img>').attr('src', `${data.images[0].hostedLargeUrl}`).attr('alt', `photo of ${data.name}`);
+ 	$('.title-time').append(name, time);
+	$('.rating-servings').append(servings);
+ 	$('.recipe-image').append(image);
+ 	data.ingredientLines.forEach((item) => {
+ 		const formattedItem = item.toLowerCase();
+ 		$('.ingredient-list').append(`<li>${formattedItem}</li>`);
+ 	})
+ 	if(data.source.sourceDisplayName == undefined){
+ 		let sourceName = $('<p>').text('Yummly');
+ 		$('.source').append(sourceName);
+ 	}else {
+ 		let sourceName = $('<p>').text(data.source.sourceDisplayName);
+ 		$('.source').append(sourceName);
+ 	}
+ 	const sourceURL = $('<a class="source-recipe">').attr('href', `${data.source.sourceRecipeUrl}`).attr('target', '_blank').text('See Full Recipe and Directions')
+ 	$('.source').append(sourceURL);
+ 	
 }
 
 $(() => {
