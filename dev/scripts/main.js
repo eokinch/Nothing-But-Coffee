@@ -24,7 +24,7 @@ coffeeApp.formSubmit = () => {
 
 coffeeApp.getData = () => {
 	$.ajax({
-		url: `http://api.yummly.com/v1/api/recipes?_app_id=${coffeeApp.id}&_app_key=${coffeeApp.key}&q=coffee&allowedCourse[]=course^course-Beverages&excludedCourse[]=course^course-Dessert&${coffeeApp.withAlochol}&requirePictures=true`,
+		url: `http://api.yummly.com/v1/api/recipes?_app_id=${coffeeApp.id}&_app_key=${coffeeApp.key}&q=coffee&allowedCourse[]=course^course-Beverages&excludedCourse[]=course^course-Dessert&${coffeeApp.withAlochol}&requirePictures=true&maxResult=50`,
 		method: 'GET',
 		dataType: 'JSON'
 	}).then((data) => {
@@ -135,12 +135,20 @@ coffeeApp.displayFullRecipe = (data) => {
  		let sourceName = $('<p>').text('Yummly');
  		$('.source').append(sourceName);
  	}else {
- 		let sourceName = $('<p>').text(data.source.sourceDisplayName);
+ 		let source = data.source.sourceSiteUrl
+ 		let sourceStart = source.startsWith('http');
+ 		let sourceSite = '';
+ 		if (sourceStart === true){
+ 			sourceSite = source;
+ 		} else {
+ 			sourceSite = `http://${source}`;
+ 		}
+
+ 		let sourceName = $('<a class="source-site">').attr('href', `${sourceSite}`).attr('target', '_blank').text(data.source.sourceDisplayName);
  		$('.source').append(sourceName);
  	}
  	const sourceURL = $('<a class="source-recipe">').attr('href', `${data.source.sourceRecipeUrl}`).attr('target', '_blank').text('See Full Recipe and Directions')
- 	$('.source').append(sourceURL);
- 	
+ 	$('.source').append(sourceURL);	
 }
 
 $(() => {

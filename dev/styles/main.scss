@@ -1,38 +1,9 @@
 @import 'partials/setup';
 @import 'partials/global';
+@import 'partials/home';
+@import 'partials/drinks';
+@import 'partials/recipe';
 
-.selection-form_error {
-	visibility: hidden;
-}
 
-.drink-results_displayed {
-	display: flex;
-}
 
-.displayed-item {
-	margin: 0 10px; 
-	width:calc(33.33% - 20px);
-	background: white;
-	padding: 15px;
-	h4 {
-		text-align: center;
-	}
-	img {
-		width: 66%;
-		display: block;
-		margin: 0 auto;
-	}
-	ul {
-		margin: 0;
-		list-style: none;
-		li {
-			text-transform: capitalize;
-		}
-	}
-}
 
-.ingredient-list {
-	li {
-		text-transform: capitalize;
-	}
-}
